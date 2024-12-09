@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Build AI Chatbot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #444;
+            font-size: 2rem;
+            margin-top: 30px;
+        }
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        ul {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        .back-button {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>How to Build Your AI Chatbot</h1>
+
+    <p>Here’s a step-by-step guide on how to build a simple AI chatbot using HTML, JavaScript, and localStorage.</p>
+
+    <h2>Technologies Used</h2>
+    <ul>
+        <li><strong>HTML</strong> - To structure the pages and content.</li>
+        <li><strong>CSS</strong> - To style and make the pages look appealing.</li>
+        <li><strong>JavaScript</strong> - For functionality and handling the chatbot logic.</li>
+        <li><strong>localStorage</strong> - To save and load previous chat sessions.</li>
+    </ul>
+
+    <h2>Steps to Build the Chatbot</h2>
+    <p>Follow these steps to create your own AI chatbot:</p>
+    <ol>
+        <li><strong>Create the HTML structure:</strong> Start by setting up your chatbot page with a chat box, input area, and buttons for sending messages.</li>
+        <li><strong>Style the page:</strong> Use CSS to make the chatbot look nice and responsive on different screen sizes.</li>
+        <li><strong>Implement JavaScript logic:</strong> Write functions to handle sending messages, receiving responses, and saving chat history.</li>
+        <li><strong>Use localStorage:</strong> Save chat history in the browser's localStorage so users can return to previous conversations.</li>
+    </ol>
+
+    <h2>Code Snippets</h2>
+    <p>Here’s the basic structure for sending a message:</p>
+    <pre>
+        // JavaScript code to handle sending a message
+        function sendMessage() {
+            const userMessage = document.getElementById("user-input").value;
+            if (userMessage) {
+                // Display user message
+                addMessage("user", userMessage);
+                // Add bot response (this part is mock)
+                addMessage("bot", "This is a mock response to: " + userMessage);
+            }
+        }
+    </pre>
+
+    <a href="in.html" class="back-button">Back to Home</a>
+</div>
+
+</body>
+</html>

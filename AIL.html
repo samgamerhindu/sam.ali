@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot with History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .messages {
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .messages div {
+            margin: 5px 0;
+        }
+        .user {
+            text-align: right;
+            color: blue;
+        }
+        .bot {
+            text-align: left;
+            color: green;
+        }
+        .input-container {
+            display: flex;
+            margin-top: 10px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .actions {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .history-list {
+            margin-top: 10px;
+            list-style-type: none;
+            padding: 0;
+        }
+        .history-list li {
+            padding: 8px;
+            background: #f4f4f4;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .history-list li:hover {
+            background: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="messages" id="chat-box">
+        <!-- Chat messages will appear here -->
+    </div>
+    <div class="input-container">
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <div class="actions">
+        <button onclick="saveCurrentChat()">Save Current Chat</button>
+        <button onclick="showHistory()">View Previous Chats</button>
+    </div>
+    <ul class="history-list" id="history-list">
+        <!-- Previous chats will be listed here -->
+    </ul>
+</div>
+
+<script>
+    const chatBox = document.getElementById("chat-box");
+    const historyList = document.getElementById("history-list");
+    let chatHistory = [];
+
+    async function sendMessage() {
+        const userInput = document.getElementById("user-input");
+        const message = userInput.value.trim();
+
+        if (message) {
+            addMessage("user", message);
+            chatHistory.push({ sender: "user", message: message });
+            userInput.value = "";
+
+            const botResponse = await getBotResponse(message);
+            addMessage("bot", botResponse);
+            chatHistory.push({ sender: "bot", message: botResponse });
+        }
+    }
+
+    function addMessage(sender, message) {
+        const div = document.createElement("div");
+        div.className = sender;
+        div.textContent = sender === "user" ? `You: ${message}` : `Bot: ${message}`;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function getBotResponse(userMessage) {
+        // Replace with your API call logic
+        return `This is a mock response to "${userMessage}".`; // Mock response for testing
+    }
+
+    function saveCurrentChat() {
+        const timestamp = new Date().toISOString();
+        localStorage.setItem(timestamp, JSON.stringify(chatHistory));
+        alert("Chat saved!");
+    }
+
+    function showHistory() {
+        historyList.innerHTML = ""; // Clear previous list
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const li = document.createElement("li");
+            li.textContent = `Chat from ${new Date(key).toLocaleString()}`;
+            li.dataset.key = key;
+            li.onclick = () => loadChat(key);
+            historyList.appendChild(li);
+        }
+    }
+
+    function loadChat(key) {
+        const savedChat = localStorage.getItem(key);
+        if (savedChat) {
+            chatHistory = JSON.parse(savedChat);
+            chatBox.innerHTML = ""; // Clear chat box
+            chatHistory.forEach(entry => addMessage(entry.sender, entry.message));
+        } else {
+            alert("Chat not found!");
+        }
+    }
+</script>
+
+</body>
+</html>
+
